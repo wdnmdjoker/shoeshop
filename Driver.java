@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class Driver {
@@ -9,6 +10,7 @@ public class Driver {
         System.out.println("Shoe Project V 1.0");
 
         Driver driver = new Driver();
+
         driver.runMenu();
 
     }
@@ -59,11 +61,26 @@ public class Driver {
 
         System.out.print("Please Enter a Shoe Brand to Find : ");
         String brand = input.nextLine();
-        Shoe shoe = shop.find(brand);
-        if (shoe == null) {
+        //find the shoes in the shop with this brand and display them
+        List<Shoe> shoes = shop.find(brand);
+        if (shoes == null || shoes.isEmpty()) {
             System.out.println("There are no Things with the brand [" + brand + "] in the Shop.");
         } else {
-            System.out.println(shoe.toString());
+            //display the shoes with index numbers
+            System.out.println("Shoes with the brand [" + brand + "] are:");
+            for (int i = 0; i < shoes.size(); i++) {
+                System.out.println(i + ": " + shoes.get(i));
+            }
+            //choose the shoe to update
+            System.out.println("Enter the index of the Shoe to update : ");
+            int index = input.nextInt();
+            input.nextLine();
+            if (index < 0 || index >= shoes.size()) {
+                System.out.println("Invalid index entered");
+                return;
+            }
+            Shoe shoe = shoes.get(index);
+            System.out.println("The Shoe you want to update is: " + shoe.toString());
             System.out.print("Enter the New Brand:  ");
             String b = input.nextLine();
             System.out.print("Enter the New Type:  ");
@@ -90,10 +107,22 @@ public class Driver {
 
         System.out.print("Please Enter a Shoe Brand to Find : ");
         String brand = input.nextLine();
-        Shoe shoe = shop.find(brand);
-        if (shoe == null) {
+        List<Shoe> shoes = shop.find(brand);
+        if (shoes == null) {
             System.out.println("There are no Things with the brand [" + brand + "] in the Shop.");
         } else {
+
+            System.out.println("Shoes with the brand [" + brand + "] are:");
+            for (int i = 0; i < shoes.size(); i++) {
+                System.out.println(i + ": " + shoes.get(i));
+            }
+            System.out.print("Enter the index of the Shoe to delete : ");
+            int index = input.nextInt();
+            if (index < 0 || index >= shoes.size()) {
+                System.out.println("Invalid index entered");
+                return;
+            }
+            Shoe shoe = shoes.get(index);
             System.out.println(shoe.toString());
             System.out.print("Sure you want to delete(y/n): ");
             String yn = input.nextLine();
@@ -124,6 +153,7 @@ public class Driver {
         String color = input.nextLine();
 
         Shoe temp = new Shoe(brand, type, size, price, color);
+
         boolean isAdded = shop.add(temp);
         if (isAdded) {
             System.out.println("Shoe Added Successfully");
