@@ -1,11 +1,13 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Shop {
     private List<Shoe> shoes = null;
 
     public Shop() {
         shoes = new ArrayList<>();
+
     }
 
     public boolean add(Shoe shoe) {
@@ -24,15 +26,9 @@ public class Shop {
         }
     }
 
-    public Shoe find(String brand) {
-        Shoe find =  null;
-        for (int i = 0; i < shoes.size(); i++) {
-            if (shoes.get(i).getBrand().equals(brand)) {
-                find = shoes.get(i);
-                break;
-            }
-        }
-        return find;
+    public List<Shoe> find(String brand) {
+        return shoes.stream().filter((shoe) -> (shoe.getBrand().contains(brand)))
+                .collect(Collectors.toList());
     }
 
     public Shoe update(Shoe oldShoe, Shoe newShoe) {
