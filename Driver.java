@@ -21,7 +21,7 @@ public class Driver {
                 Shoe Shop Menu
                 ---------
                   (1) Add a shoe
-                  (2) List a shoe
+                  (2) List all shoes
                   (3) Update a shoe details
                   (4) Delete a shoe from the system
                   (0) Exit
@@ -118,12 +118,12 @@ public class Driver {
             }
             System.out.print("Enter the index of the Shoe to delete : ");
             int index = input.nextInt();
+            input.nextLine();
             if (index < 0 || index >= shoes.size()) {
                 System.out.println("Invalid index entered");
                 return;
             }
             Shoe shoe = shoes.get(index);
-            System.out.println(shoe.toString());
             System.out.print("Sure you want to delete(y/n): ");
             String yn = input.nextLine();
             if (yn.equalsIgnoreCase("y")) {
